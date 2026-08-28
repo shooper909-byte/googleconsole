@@ -26,6 +26,19 @@ bad find/replace.
 
 ---
 
+## Status (2026-08-28)
+
+4 of the 39 corrupted pages have been repaired directly through the WordPress
+REST API and verified clean on the live site:
+`texas-research-peptides`, `bpc-157-kpv-recovery-immune-research`,
+`bpc-157-tb-500-blend-research`, `mots-c-ss-31-blend-mitochondrial-research`.
+
+The remaining 35 are covered by [`fix-corrupted-links.sh`](fix-corrupted-links.sh),
+which repairs all of them in one WP-CLI pass. Nothing else in this document has
+been applied to the site.
+
+---
+
 ## 1. A find/replace corrupted URLs on 39 pages (P1)
 
 A rename of "Stack" → "Research Panel" was applied to page content but was not
