@@ -9,14 +9,22 @@
 # This ONLY rewrites href values. Display text is left exactly as it is --
 # the rename itself was intentional and is not being undone.
 #
-# Every target below was verified against the live site on 2026-08-28:
-#   /stacks/                                  -> 200 (redirects to /research-stacks/)
-#   /products/longevity-research-stack/       -> 200 (resolves to /products/cellular-research-panel/)
-#   /products/metabolic-research-stack/       -> 200 (resolves to /research-stacks/)
-#   /products/recovery-support-research-stack/-> 404 (dead; send to the hub)
-#   /products/starter-research-stack/         -> 404 (dead; send to the hub)
-#   /products/recovery-research-stack/        -> 404 (dead; send to the hub)
-#   /?product=<slug>-stack...                 -> 200 (resolves to /research-catalog/)
+# Every target below was resolved against the live site on 2026-08-28:
+#   /stacks/                                   -> 200 (redirects to /research-stacks/)
+#   /products/longevity-research-stack/        -> 200 (resolves to /products/cellular-research-panel/)
+#   /products/metabolic-research-stack/        -> 200 (resolves to /research-stacks/)
+#   /products/recovery-support-research-stack/ -> 404 (dead; send to the hub)
+#   /products/starter-research-stack/          -> 404 (dead; send to the hub)
+#   /products/recovery-research-stack/         -> 404 (dead; send to the hub)
+#   /?product=<slug>-stack...                  -> 200 (resolves to /research-catalog/)
+#
+# Only plain-space forms occur in the content -- there are no URL-encoded
+# (%20) variants, so no encoded patterns are needed.
+#
+# Four pages were already repaired directly via the REST API and are clean:
+#   texas-research-peptides, bpc-157-kpv-recovery-immune-research,
+#   bpc-157-tb-500-blend-research, mots-c-ss-31-blend-mitochondrial-research
+# They simply won't match anything here, so running this is still safe.
 #
 # USAGE
 #   1. Take a database backup first.
@@ -28,7 +36,22 @@
 set -euo pipefail
 
 DRY="--dry-run"
-[[ "${1:-}" == "--apply" ]] && DRY=""
+if [[ "${1:-}" == "--apply" ]]; then
+  DRY=""
+  echo ">>> APPLYING CHANGES <<<"
+else
+  echo ">>> DRY RUN -- no changes will be written. Re-run with --apply to commit. <<<"
+fi
+echo
+
+command -v wp >/dev/null || { echo "wp-cli not found on PATH." >&2; exit 1; }
+
+# Resolve the real table prefix rather than assuming "wp_" -- a wrong guess
+# would match nothing and report a silent success.
+PREFIX="$(wp db prefix)"
+POSTS="${PREFIX}posts"
+echo "Table: ${POSTS}"
+echo
 
 SITE="https://www.oligopolypeptides.com"
 
@@ -51,19 +74,33 @@ declare -a PAIRS=(
 for pair in "${PAIRS[@]}"; do
   from="href=\"${pair%%|*}\""
   to="href=\"${pair##*|}\""
-  echo "--- ${from}"
-  wp search-replace "$from" "$to" wp_posts \
+  echo "--- ${pair%%|*}"
+  wp search-replace "$from" "$to" "$POSTS" \
     --include-columns=post_content \
-    --precise --report-changed-only $DRY
+    --precise --report-changed-only ${DRY}
 done
 
 echo
-echo "Done. Now flush caches:"
-echo "  wp cache flush"
-echo
-echo "NOT handled here -- these need per-page heading IDs, so fix them by hand:"
-echo '  #Research Panel-feature'
-echo '  #all-active-research-Research Panel-products'
-echo '  #blend-and-Research Panel-options'
-echo '  #documentation-standards-across-Research Panels'
-echo '  #recovery-Research Panel-context'
+echo "Remaining corrupted hrefs in post_content (expect 0 after --apply):"
+wp db query "SELECT COUNT(*) AS remaining FROM ${POSTS} \
+  WHERE post_content LIKE '%href=\"%Research Panel%'" --skip-column-names || true
+
+if [[ -z "$DRY" ]]; then
+  echo
+  echo "Flushing caches..."
+  wp cache flush
+fi
+
+cat <<'NOTE'
+
+NOT handled here -- these are in-page anchor fragments and need the real
+heading IDs from each page, so fix them by hand:
+  #Research Panel-feature
+  #all-active-research-Research Panel-products
+  #blend-and-Research Panel-options
+  #documentation-standards-across-Research Panels
+  #recovery-Research Panel-context
+
+Also worth a look: some link TEXT reads "Research Research Panels", which is
+the same rename applied twice. Cosmetic only -- no links are broken by it.
+NOTE
