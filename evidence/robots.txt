@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /customer-dashboard/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /?s=
+Disallow: /*?add-to-cart=
+Disallow: /product-tag/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://www.oligopolypeptides.com/sitemap_index.xml

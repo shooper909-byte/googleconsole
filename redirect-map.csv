@@ -1,0 +1,24 @@
+broken_url,current_behaviour,internal_links,recommended_action,target,note
+/Research Panels/,malformed (space in path),66,fix links in content,/research-stacks/,corrupted by a "Stack"->"Research Panel" find/replace that hit href values
+/products/recovery-support-research-Research Panel/,malformed (space in path),7,fix links in content,/research-stacks/,same find/replace; original slug recovery-support-research-stack is also dead
+/products/starter-research-Research Panel/,malformed (space in path),6,fix links in content,/research-stacks/,same find/replace
+/products/metabolic-research-Research Panel,malformed (space in path),2,fix links in content,/products/metabolic-pathways-stack/,same find/replace; live equivalent exists
+/products/longevity-research-Research Panel,malformed (space in path),1,fix links in content,/research-stacks/,same find/replace
+/products/recovery-research-Research Panel,malformed (space in path),1,fix links in content,/product-category/recovery-research/,same find/replace
+/peptide-reconstitution-guide/,404,39,restore page or repoint links,/research-library/,linked from ~39 product pages - almost certainly one template/block edit
+/products/bpc-157-tb-500-research-peptide-blend/,301 -> /products/bpc-157-tb-500-blend/ -> 404,19,repoint the existing 301,/product-category/regenerative-biology-research/,redirect currently lands on a dead product
+/products/selank-5mg-research-peptide/,404,10,301,/products/selank-5-mg-6-vial-research-kit/,only the 6-vial kit remains live
+/products/ss-31,301 -> /products/ss-31-10mg-research-peptide/ -> 404,7,repoint the existing 301,/product-category/cellular-energy-research/,no live SS-31 product
+/products/tesamorelin,301 -> /products/tesamorelin-10mg-research-peptide/ -> 404,7,repoint the existing 301,/product-category/growth-hormone-research/,no live Tesamorelin product
+/gh-axis-research-peptides-cjc-1295-ipamorelin-tesamorelin/,404,6,restore article or repoint links,/product-category/growth-hormone-research/,linked from 3 comparison articles
+/products/ara-290,301 -> /products/ara-290-10mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/regenerative-biology-research/,no live ARA-290 product
+/products/cjc-1295-no-dac,301 -> /products/cjc-1295-no-dac-2mg-research-peptide/ -> 404,6,repoint the existing 301,/products/cjc-1295-no-dac-5-mg-research-peptide/,redirect points at the 2mg variant; the 5mg variant is live
+/products/epitalon,301 -> /products/epitalon-50mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/cellular-research/,no live Epitalon product
+/products/ipamorelin,301 -> /products/ipamorelin-5mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/growth-hormone-research/,no live Ipamorelin product
+/products/pinealon,301 -> /products/pinealon-5mg-research-peptide/ -> 404,5,repoint the existing 301,/product-category/cognitive-systems-research/,no live Pinealon product
+/products/peg-mgf-2mg-research-peptide/,404,4,301,/product-category/growth-hormone-research/,no live PEG-MGF product
+/products/melanotan-ii,301 -> /products/melanotan-ii-10mg-research-peptide/ -> 404,3,repoint the existing 301,/research-catalog/,no live Melanotan II product
+/peptide-dosage-calculation/,404,2,repoint links,/research-library/,no live equivalent
+/products/igf-1-lr3,301 -> /products/igf-1-lr3-1mg-research-peptide/ -> 404,1,repoint the existing 301,/product-category/growth-hormone-research/,no live IGF-1 LR3 product
+/products/recovery-support-research-stack/,301 -> /products/tissue-response-research-panel/ -> 404,0,repoint the existing 301,/research-stacks/,appears in GSC "Crawled - currently not indexed"
+/research-products/,200 self-canonical,1,301 consolidate,/research-catalog/,identical <title>; /research-catalog/ has 2225 internal links vs 1
