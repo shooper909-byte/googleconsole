@@ -11,8 +11,9 @@ Search Console remediation work for
 | [`exports/`](exports/) | Full 1,128-URL inventory, the 73-URL GSC inspection worksheet, supplied GSC data |
 | [`scripts/`](scripts/) | The crawler and analysis that produce those exports |
 | [`FINDINGS.md`](FINDINGS.md) | The 2026-08-28 audit — superseded in places, see the re-audit |
-| [`remediation-sheet.csv`](remediation-sheet.csv) | Prioritised fix list (P1/P2/P3 + verified "no action" rows) |
-| [`redirect-map.csv`](redirect-map.csv) | Broken URL → recommended target, with inbound link counts |
+| [`remediation-sheet.csv`](remediation-sheet.csv) | Prioritised fix list, refreshed 2026-09-10 (P0/P1/P2 + verified "no action" rows) |
+| [`redirect-map.csv`](redirect-map.csv) | 29 broken URLs → verified live targets, with inbound link counts |
+| [`fix-corrupted-links.sh`](fix-corrupted-links.sh) | WP-CLI repair for the malformed `-Research Panel` hrefs (revised 2026-09-10) |
 | [`evidence/`](evidence/) | Raw crawl output backing every claim |
 
 ## Summary (as of 2026-09-10)
