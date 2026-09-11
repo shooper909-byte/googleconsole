@@ -1,24 +1,31 @@
 broken_url,current_behaviour,internal_links,recommended_action,target,note
-/Research Panels/,malformed (space in path),66,fix links in content,/research-stacks/,corrupted by a "Stack"->"Research Panel" find/replace that hit href values
-/products/recovery-support-research-Research Panel/,malformed (space in path),7,fix links in content,/research-stacks/,same find/replace; original slug recovery-support-research-stack is also dead
-/products/starter-research-Research Panel/,malformed (space in path),6,fix links in content,/research-stacks/,same find/replace
-/products/metabolic-research-Research Panel,malformed (space in path),2,fix links in content,/products/metabolic-pathways-stack/,same find/replace; live equivalent exists
-/products/longevity-research-Research Panel,malformed (space in path),1,fix links in content,/research-stacks/,same find/replace
-/products/recovery-research-Research Panel,malformed (space in path),1,fix links in content,/product-category/recovery-research/,same find/replace
-/peptide-reconstitution-guide/,404,39,restore page or repoint links,/research-library/,linked from ~39 product pages - almost certainly one template/block edit
-/products/bpc-157-tb-500-research-peptide-blend/,301 -> /products/bpc-157-tb-500-blend/ -> 404,19,repoint the existing 301,/product-category/regenerative-biology-research/,redirect currently lands on a dead product
-/products/selank-5mg-research-peptide/,404,10,301,/products/selank-5-mg-6-vial-research-kit/,only the 6-vial kit remains live
-/products/ss-31,301 -> /products/ss-31-10mg-research-peptide/ -> 404,7,repoint the existing 301,/product-category/cellular-energy-research/,no live SS-31 product
-/products/tesamorelin,301 -> /products/tesamorelin-10mg-research-peptide/ -> 404,7,repoint the existing 301,/product-category/growth-hormone-research/,no live Tesamorelin product
-/gh-axis-research-peptides-cjc-1295-ipamorelin-tesamorelin/,404,6,restore article or repoint links,/product-category/growth-hormone-research/,linked from 3 comparison articles
-/products/ara-290,301 -> /products/ara-290-10mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/regenerative-biology-research/,no live ARA-290 product
-/products/cjc-1295-no-dac,301 -> /products/cjc-1295-no-dac-2mg-research-peptide/ -> 404,6,repoint the existing 301,/products/cjc-1295-no-dac-5-mg-research-peptide/,redirect points at the 2mg variant; the 5mg variant is live
-/products/epitalon,301 -> /products/epitalon-50mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/cellular-research/,no live Epitalon product
-/products/ipamorelin,301 -> /products/ipamorelin-5mg-research-peptide/ -> 404,6,repoint the existing 301,/product-category/growth-hormone-research/,no live Ipamorelin product
-/products/pinealon,301 -> /products/pinealon-5mg-research-peptide/ -> 404,5,repoint the existing 301,/product-category/cognitive-systems-research/,no live Pinealon product
-/products/peg-mgf-2mg-research-peptide/,404,4,301,/product-category/growth-hormone-research/,no live PEG-MGF product
-/products/melanotan-ii,301 -> /products/melanotan-ii-10mg-research-peptide/ -> 404,3,repoint the existing 301,/research-catalog/,no live Melanotan II product
-/peptide-dosage-calculation/,404,2,repoint links,/research-library/,no live equivalent
-/products/igf-1-lr3,301 -> /products/igf-1-lr3-1mg-research-peptide/ -> 404,1,repoint the existing 301,/product-category/growth-hormone-research/,no live IGF-1 LR3 product
-/products/recovery-support-research-stack/,301 -> /products/tissue-response-research-panel/ -> 404,0,repoint the existing 301,/research-stacks/,appears in GSC "Crawled - currently not indexed"
-/research-products/,200 self-canonical,1,301 consolidate,/research-catalog/,identical <title>; /research-catalog/ has 2225 internal links vs 1
+/Research Panels/,malformed (literal space in path),31,fix hrefs in content,/research-collections/,"second wave of the Stack->Research Panel rename hitting href values; /research-stacks/ now 301s, so point at the final URL"
+/senescence-telomere-signaling-blends/,404,7,create the hub or repoint links,/product-category/senescence-telomere-signaling/,hub page was linked but never created
+/products/senescence-telomere-signaling-Research Panel/,malformed (literal space in path),5,fix hrefs in content,/products/telomere-biology-reference-collection/,"renamed product, live and 200"
+/endocrine-receptor-ligands-blends/,404,5,create the hub or repoint links,/product-category/endocrine-receptor-ligands/,hub page was linked but never created
+/extracellular-matrix-signaling-blends/,404,5,create the hub or repoint links,/product-category/extracellular-matrix-signaling/,hub page was linked but never created
+/gh-axis-research-peptides-cjc-1295-ipamorelin-tesamorelin/,404,3,restore article or repoint links,/product-category/ghrh-ghs-r-ligands/,linked from comparison articles; also 404 in the August audit
+/products/epitalon,301 -> /products/epitalon-50mg-research-peptide/ -> 404,3,repoint the existing 301,/product-category/senescence-telomere-signaling/,no live Epitalon product
+/products/endocrine-receptor-ligands-Research Panel,malformed (literal space in path),2,fix hrefs in content,/product-category/endocrine-receptor-ligands/,no single renamed product matches; category is the honest target
+/products/neuropeptide-signaling-Research Panel/,malformed (literal space in path),2,fix hrefs in content,/products/cns-receptor-reference-collection/,"renamed product, live and 200"
+/products/performance-extracellular-matrix-signaling-Research Panel/,malformed (literal space in path),2,fix hrefs in content,/products/tissue-signaling-collection/,"renamed product, live and 200"
+/products/recovery-mitochondrial-redox-signaling-Research Panel/,malformed (literal space in path),2,fix hrefs in content,/products/mitochondrial-signaling-collection/,"renamed product, live and 200"
+/products/recovery-support-research-Research Panel/,malformed (literal space in path),2,fix hrefs in content,/product-category/multi-compound-research-formulations/recovery-research-blends/,carried over uncorrected from the August wave
+/products/starter-research-Research Panel/,malformed (literal space in path),2,fix hrefs in content,/research-collections/,carried over uncorrected from the August wave; no starter product remains
+/extracellular-matrix-signaling-peptides/,404,2,restore article or repoint links,/product-category/extracellular-matrix-signaling/,
+/innate-immune-signaling-peptides-thymosin-alpha-1-kpv-thymosin-beta-4/,404,2,restore article or repoint links,/product-category/innate-immune-signaling/,
+/neuropeptide-signaling-peptides-semax-selank-dihexa/,404,2,restore article or repoint links,/product-category/neuropeptide-signaling/,
+/products/ara-290,301 -> /products/ara-290-10mg-research-peptide/ -> 404,2,repoint the existing 301,/product-category/regenerative-biology-research/,no live ARA-290 product
+/products/senescence-telomere-signaling-Research Panel,malformed (literal space in path),2,fix hrefs in content,/products/telomere-biology-reference-collection/,slashless variant of the row above; the fix script handles both
+/products/extracellular-matrix-signaling-Research Panel,malformed (literal space in path),1,fix hrefs in content,/products/tissue-signaling-collection/,"renamed product, live and 200"
+/products/igf-1-lr3,301 -> /products/igf-1-lr3-1mg-research-peptide/ -> 404,1,repoint the existing 301,/product-category/ghrh-ghs-r-ligands/,no live IGF-1 LR3 product
+/products/melanotan-ii,301 -> /products/melanotan-ii-10mg-research-peptide/ -> 404,1,repoint the existing 301,/research-catalog/,no live Melanotan II product and no matching category
+/products/peg-mgf-2mg-research-peptide/,404,1,301,/product-category/ghrh-ghs-r-ligands/,no live PEG-MGF product
+/tag/research-collections/,404,1,repoint links,/research-collections/,tag archive does not exist; the hub does
+/compare/${p.url},301 -> /compare/p.url -> 404,1,fix the template,(n/a - template bug),unevaluated JS template literal published into the HTML; not fixable by editing content
+/research-partner-program/context.item.anchor,404,1,fix the template,(n/a - template bug),unevaluated JS template literal published into the HTML
+/?product=advanced-multi-pathway-Research Panel,malformed (literal space in path),1,fix hrefs in content,/product-category/multi-compound-research-formulations/,
+/?product=metabolic-research-Research Panel,malformed (literal space in path),1,fix hrefs in content,/products/metabolic-pathways-research-collection/,"renamed product, live and 200"
+/?product=recovery-cellular-Research Panel-bpc-157-tb-500-ghk-cu-ss-31,malformed (literal space in path),1,fix hrefs in content,/product-category/multi-compound-research-formulations/recovery-research-blends/,
+/?product=recovery-support-Research Panel-bpc-157-tb-500-ara-290,malformed (literal space in path),1,fix hrefs in content,/product-category/multi-compound-research-formulations/recovery-research-blends/,
+/?product=starter-research-Research Panel-bpc-157-tb-500-ghk-cu,malformed (literal space in path),1,fix hrefs in content,/research-collections/,
