@@ -16,6 +16,7 @@ broken_url,current_behaviour,internal_links,recommended_action,target,note
 /innate-immune-signaling-peptides-thymosin-alpha-1-kpv-thymosin-beta-4/,404,2,restore article or repoint links,/product-category/innate-immune-signaling/,
 /neuropeptide-signaling-peptides-semax-selank-dihexa/,404,2,restore article or repoint links,/product-category/neuropeptide-signaling/,
 /products/ara-290,301 -> /products/ara-290-10mg-research-peptide/ -> 404,2,repoint the existing 301,/product-category/regenerative-biology-research/,no live ARA-290 product
+/products/senescence-telomere-signaling-Research Panel,malformed (literal space in path),2,fix hrefs in content,/products/telomere-biology-reference-collection/,slashless variant of the row above; the fix script handles both
 /products/extracellular-matrix-signaling-Research Panel,malformed (literal space in path),1,fix hrefs in content,/products/tissue-signaling-collection/,"renamed product, live and 200"
 /products/igf-1-lr3,301 -> /products/igf-1-lr3-1mg-research-peptide/ -> 404,1,repoint the existing 301,/product-category/ghrh-ghs-r-ligands/,no live IGF-1 LR3 product
 /products/melanotan-ii,301 -> /products/melanotan-ii-10mg-research-peptide/ -> 404,1,repoint the existing 301,/research-catalog/,no live Melanotan II product and no matching category

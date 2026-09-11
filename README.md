@@ -29,7 +29,7 @@ The problems are elsewhere:
   impressions and the site's only click. The redirects to `www` are correct and
   one hop; they just have not been reattributed yet.
 - **The "Stack" → "Research Panel" rename bug recurred** on the newer taxonomy.
-  14 malformed URLs (literal spaces in `href`) are still live.
+  15 malformed URLs (literal spaces in `href`) are still live.
 - **30 sitemap URLs have zero internal links**, which is the likely bulk of
   Search Console's 56 `Discovered – currently not indexed`.
 
