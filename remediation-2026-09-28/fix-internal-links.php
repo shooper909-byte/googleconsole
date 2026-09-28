@@ -75,53 +75,74 @@ foreach ($rows as $row) {
     }
 }
 
-// 2) Elementor data: JSON with escaped slashes, e.g. "url":"https:\/\/…" and href=\"…\".
-//    Simple, linear patterns only ([^"] cannot cross a quote), so PCRE limits are
-//    never hit on large values; a regex failure is reported instead of skipped.
+// 2) Elementor data. Decoded as JSON and walked value by value, so no assumption is
+//    made about how quotes and slashes are escaped in storage. Only "url" values and
+//    href attributes inside HTML strings are changed; the data is re-encoded the way
+//    Elementor saves it (wp_json_encode).
+$fix_html_hrefs = function (string $html, int $post_id) use ($resolve_link, &$report, &$count_ref) {
+    return preg_replace_callback(
+        '#(href\s*=\s*)(["\'])([^"\']*?Research(?: |%20)Panel[^"\']*?)\2#i',
+        function ($m) use ($resolve_link, &$report, $post_id, &$count_ref) {
+            $target = $resolve_link($m[3]);
+            if ($target === null) {
+                if ($m[3] !== '' && $m[3][0] !== '#') { $report['unresolved'][$m[3]][] = $post_id; }
+                return $m[0];
+            }
+            $count_ref++;
+            $report['changes'][] = ['post' => $post_id, 'meta' => '_elementor_data', 'from' => $m[3], 'to' => $target];
+            return $m[1] . $m[2] . esc_url($target) . $m[2];
+        },
+        $html
+    );
+};
+$walk = function ($node, int $post_id) use (&$walk, $resolve_link, $fix_html_hrefs, &$report, &$count_ref) {
+    if (is_array($node) || is_object($node)) {
+        $is_obj = is_object($node);
+        $arr = (array) $node;
+        foreach ($arr as $k => $v) {
+            if ($k === 'url' && is_string($v)) {
+                $target = $resolve_link($v);
+                if ($target !== null) {
+                    $count_ref++;
+                    $report['changes'][] = ['post' => $post_id, 'meta' => '_elementor_data', 'from' => $v, 'to' => $target];
+                    $arr[$k] = $target;
+                    continue;
+                }
+            }
+            $arr[$k] = $walk($v, $post_id);
+        }
+        return $is_obj ? (object) $arr : $arr;
+    }
+    if (is_string($node) && stripos($node, 'href') !== false && (stripos($node, 'Research Panel') !== false || stripos($node, 'Research%20Panel') !== false)) {
+        $fixed = $fix_html_hrefs($node, $post_id);
+        return $fixed === null ? $node : $fixed;
+    }
+    return $node;
+};
 $metas = $wpdb->get_results(
     "SELECT meta_id, post_id, meta_value FROM {$wpdb->postmeta}
      WHERE meta_key = '_elementor_data' AND (meta_value LIKE '%Research Panel%' OR meta_value LIKE '%Research\\%20Panel%')"
 );
-$elementor_patterns = [
-    '#(href=\\\\")([^"]*?Research(?: |%20)Panel[^"]*?)(\\\\")#i',   // href=\"...\"
-    '#("url"\s*:\s*")([^"]*?Research(?: |%20)Panel[^"]*?)(")#i',    // "url":"..."
-];
 foreach ($metas as $meta) {
-    $count = 0;
-    $new = $meta->meta_value;
-    foreach ($elementor_patterns as $pattern) {
-        $new = preg_replace_callback(
-            $pattern,
-            function ($m) use ($resolve_link, &$count, &$report, $meta) {
-                $raw = rtrim($m[2], '\\');
-                $target = $resolve_link($raw);
-                if ($target === null) {
-                    if ($raw !== '' && $raw[0] !== '#') { $report['unresolved'][str_replace('\\/', '/', $raw)][] = (int) $meta->post_id; }
-                    return $m[0];
-                }
-                $count++;
-                $report['changes'][] = ['post' => (int) $meta->post_id, 'meta' => '_elementor_data', 'from' => str_replace('\\/', '/', $raw), 'to' => $target];
-                return $m[1] . str_replace('/', '\\/', esc_url_raw($target)) . $m[3];
-            },
-            $new
-        );
-        if ($new === null) {
-            $report['unresolved']['REGEX FAILURE (' . preg_last_error_msg() . ') in _elementor_data'][] = (int) $meta->post_id;
-            continue 2;
-        }
+    $data = json_decode($meta->meta_value);
+    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+        $report['unresolved']['_elementor_data is not valid JSON (' . json_last_error_msg() . '), left unchanged'][] = (int) $meta->post_id;
+        continue;
     }
-    if ($count > 0 && $new !== $meta->meta_value) {
-        if (json_decode($new) === null && json_last_error() !== JSON_ERROR_NONE) {
-            $report['unresolved']['_elementor_data invalid JSON after edit, skipped'][] = (int) $meta->post_id;
-            continue;
-        }
-        $report['elementor_rows_changed']++;
-        $report['elementor_replacements'] += $count;
-        if ($apply) {
-            $wpdb->update($wpdb->postmeta, ['meta_value' => $new], ['meta_id' => (int) $meta->meta_id]);
-            clean_post_cache((int) $meta->post_id);
-            delete_post_meta((int) $meta->post_id, '_elementor_element_cache');
-        }
+    $count_ref = 0;
+    $fixed = $walk($data, (int) $meta->post_id);
+    if ($count_ref === 0) { continue; }
+    $new = wp_json_encode($fixed);
+    if (!$new || json_decode($new) === null) {
+        $report['unresolved']['_elementor_data re-encode failed, left unchanged'][] = (int) $meta->post_id;
+        continue;
+    }
+    $report['elementor_rows_changed']++;
+    $report['elementor_replacements'] += $count_ref;
+    if ($apply) {
+        $wpdb->update($wpdb->postmeta, ['meta_value' => $new], ['meta_id' => (int) $meta->meta_id]);
+        clean_post_cache((int) $meta->post_id);
+        delete_post_meta((int) $meta->post_id, '_elementor_element_cache');
     }
 }
 
