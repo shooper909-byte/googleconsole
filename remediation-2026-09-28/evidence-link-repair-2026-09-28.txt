@@ -1,0 +1,31 @@
+# Link repair applied on production, 2026-09-28
+
+mode=apply posts_changed=47 href_replacements=140 remaining_malformed_non_fragment_hrefs=0
+
+Posts changed: 12, 39, 47, 480, 547, 554, 558, 559, 722, 732, 735, 739, 746, 753, 1413, 1414, 1540, 1544, 1545, 1546, 1649, 1650, 1654, 2000, 2001, 2002, 2003, 2005, 2006, 2008, 2024, 2070, 2071, 2072, 2073, 2074, 2075, 2077, 2078, 2079, 2080, 2220, 2223, 2234, 2243, 2245, 2249
+
+count  from  ->  to
+   39  https://www.oligopolypeptides.com/Research Panels/  ->  /research-collections/
+   25  /Research Panels/  ->  /research-collections/
+   12  https://www.oligopolypeptides.com/products/senescence-telomere-signaling-Research Panel/  ->  /products/telomere-biology-reference-collection/
+   12  https://www.oligopolypeptides.com/research-peptide-Research Panels-guide/  ->  /research-peptide-research-panels-guide/
+    7  https://www.oligopolypeptides.com/products/recovery-support-research-Research Panel/  ->  /recovery-research-blends/
+    6  https://www.oligopolypeptides.com/products/starter-research-Research Panel/  ->  /research-collections/
+    6  https://www.oligopolypeptides.com/products/recovery-mitochondrial-redox-signaling-Research Panel/  ->  /products/mitochondrial-signaling-collection/
+    6  https://www.oligopolypeptides.com/products/immune-optimization-research-Research Panel/  ->  /research-collections/
+    4  https://www.oligopolypeptides.com/products/performance-extracellular-matrix-signaling-Research Panel/  ->  /products/tissue-signaling-collection/
+    4  https://www.oligopolypeptides.com/products/neuropeptide-signaling-Research Panel/  ->  /products/cns-receptor-reference-collection/
+    3  https://www.oligopolypeptides.com/products/gh-axis-research-Research Panel/  ->  /research-collections/
+    3  https://www.oligopolypeptides.com/products/anti-aging-repair-research-Research Panel/  ->  /products/telomere-biology-reference-collection/
+    2  /best-peptide-Research Panels-fat-loss/  ->  /metabolic-research-blends/
+    2  https://www.oligopolypeptides.com/products/endocrine-receptor-ligands-Research Panel  ->  /products/metabolic-pathways-research-collection/
+    2  https://www.oligopolypeptides.com/product-category/research-Research Panels-2/  ->  /research-collections/
+    1  https://www.oligopolypeptides.com/products/senescence-telomere-signaling-Research Panel  ->  /products/telomere-biology-reference-collection/
+    1  https://www.oligopolypeptides.com/products/extracellular-matrix-signaling-Research Panel  ->  /products/tissue-signaling-collection/
+    1  https://www.oligopolypeptides.com/?product=starter-research-Research Panel-bpc-157-tb-500-ghk-cu  ->  /research-collections/
+    1  https://www.oligopolypeptides.com/?product=recovery-cellular-Research Panel-bpc-157-tb-500-ghk-cu-ss-31  ->  /research-collections/
+    1  https://www.oligopolypeptides.com/?product=recovery-support-Research Panel-bpc-157-tb-500-ara-290  ->  /recovery-research-blends/
+    1  https://www.oligopolypeptides.com/?product=metabolic-research-Research Panel  ->  /products/metabolic-pathways-research-collection/
+    1  https://www.oligopolypeptides.com/?product=advanced-multi-pathway-Research Panel  ->  /products/comparative-pathway-collection/
+
+Left unchanged (already invalid JSON before this work): _elementor_data on posts 191, 194, 717
