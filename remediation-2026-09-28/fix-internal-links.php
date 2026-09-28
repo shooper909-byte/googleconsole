@@ -1,98 +1,127 @@
 <?php
-if (!function_exists('wc_get_product_id_by_sku')) {
-    fwrite(STDERR, "WooCommerce SKU lookup is unavailable. Abort.\n");
+/**
+ * Repair corrupted "Research Panel" link targets in live WordPress content.
+ *
+ * Usage (after the MU plugin is installed):
+ *   wp eval-file fix-internal-links.php            # dry run: report only
+ *   wp eval-file fix-internal-links.php --apply    # write changes
+ *
+ * Scope, deliberately narrow:
+ *  - Only href values (post_content) and Elementor link values (_elementor_data)
+ *    whose target resolves through the MU plugin's legacy map are changed.
+ *  - Visible text, headings, titles, meta descriptions and anchor ids are NOT touched.
+ *  - Fragment-only links such as "#Research Panel-feature" are left alone: their
+ *    matching id attributes carry the same text, so they still work in-page.
+ *  - Revisions are not modified.
+ *  - Writes go through $wpdb, so content is not re-filtered by kses (WP-CLI runs
+ *    without an unfiltered_html user) and no new revisions are created.
+ */
+if (!function_exists('opseo_20260928_target_for')) {
+    fwrite(STDERR, "ABORT: the oligopoly-seo-remediation MU plugin is not loaded.\n");
     exit(1);
 }
 
-function opseo_fix_target_from_skus(array $skus, string $fallback = '/research-catalog/') : string {
-    foreach ($skus as $sku) {
-        $id = wc_get_product_id_by_sku($sku);
-        if ($id && get_post_status($id) === 'publish') {
-            $url = get_permalink($id);
-            if ($url) { return $url; }
-        }
-    }
-    return home_url($fallback);
-}
-
-$map = [
-    '/products/ara-290-10mg-research-peptide/' => [['OP-REC-ARA290-10MG'], '/research-catalog/'],
-    '/products/ara-290' => [['OP-REC-ARA290-10MG'], '/research-catalog/'],
-    '/products/mots-c-ss-31-blend/' => [['OPL-BLEND-MOTSC-SS31'], '/research-catalog/'],
-    '/products/performance-recovery-research-Research Panel/' => [['OP-STK-PERFORMANCE-RECOVERY'], '/research-stacks/'],
-    '/products/recovery-support-research-Research Panel/' => [['OP-STK-RECOVERY-SUPPORT'], '/research-stacks/'],
-    '/products/cognitive-research-Research Panel/' => [['OP-STK-COGNITIVE'], '/research-stacks/'],
-    '/products/metabolic-research-Research Panel/' => [['OP-STACK-METABOLIC'], '/research-stacks/'],
-    '/products/advanced-multi-pathway-research-Research Panel/' => [['OP-STK-ADVANCED-MULTIPATHWAY'], '/research-stacks/'],
-    '/products/immune-optimization-research-Research Panel/' => [['OP-STK-IMMUNE'], '/research-stacks/'],
-    '/products/starter-research-Research Panel/' => [['OP-STK-STARTER'], '/research-stacks/'],
-    '/stacks/cognitive-research-stack' => [['OP-STK-COGNITIVE'], '/research-stacks/'],
-    '/products/recovery-cellular-research-stack/' => [['OP-STK-RECOVERY-CELLULAR'], '/research-stacks/'],
-    '/products/selank' => [['OP-COG-SELANK-5MG'], '/research-catalog/'],
-    '/products/glp-2tz-blend-research-peptide/' => [['OPL-BLEND-GLP2TZ'], '/research-catalog/'],
-    '/products/tesamorelin-10mg-research-peptide/' => [['OP-GH-TESA-10MG'], '/research-catalog/'],
-    '/peptide-reconstitution-guide/' => [[], '/research-library/'],
-    '/products/dihexa' => [['OP-COG-DIHEXA-10MG'], '/research-catalog/'],
-    '/products/bpc-157-tb-500-blend/' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/products/ss-31' => [['OP-LON-SS31-10MG'], '/research-catalog/'],
-    '/products/pinealon-5mg-research-peptide/' => [['OP-LON-PINEALON-5MG'], '/research-catalog/'],
-    '/product/cjc-1295-no-dac-2mg-research-peptide/' => [['OP-GH-CJC1295-NODAC-5MG','OP-GH-CJC1295-NODAC-2MG'], '/research-catalog/'],
-    '/products/glp-3rt-blend-research-peptide/' => [['OPL-BLEND-GLP3RT'], '/research-catalog/'],
-    '/stacks/immune-optimization-stack' => [['OP-STK-IMMUNE'], '/research-stacks/'],
-    '/products/recovery-cellular-stack' => [['OP-STK-RECOVERY-CELLULAR'], '/research-stacks/'],
-    '/bpc-tb-blend-research-peptide' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/stacks/recovery-cellular-stack' => [['OP-STK-RECOVERY-CELLULAR'], '/research-stacks/'],
-    '/products/bpc-tb-blend' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/products/pinealon' => [['OP-LON-PINEALON-5MG'], '/research-catalog/'],
-    '/products/bpc-157-tb-500-research-peptide-blend/' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/bpc-tb-blend/' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/product/bpc-tb-blend/' => [['OP-REC-BPCTB-20MG'], '/research-catalog/'],
-    '/advanced-research-stack' => [['OP-STK-ADVANCED-MULTIPATHWAY'], '/research-stacks/'],
-    '/tirzepatide-10mg' => [['OP-MET-TIRZ-10MG'], '/research-catalog/'],
-    '/products/metabolic-stack' => [['OP-STACK-METABOLIC'], '/research-stacks/'],
-    '/stacks/recovery-stack' => [['OP-STK-RECOVERY-CELLULAR'], '/research-stacks/'],
-];
-
-$resolved = [];
-foreach ($map as $old => [$skus, $fallback]) {
-    $resolved[$old] = $skus ? opseo_fix_target_from_skus($skus, $fallback) : home_url($fallback);
-}
-
+$apply = in_array('--apply', $args ?? [], true);
 global $wpdb;
-$post_ids = $wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE post_status IN ('publish','draft','private') AND post_content <> ''");
-$changed_posts = 0;
-$changed_links = 0;
 
-foreach ($post_ids as $post_id) {
-    $content = (string) get_post_field('post_content', $post_id);
-    $new = $content;
-    $post_changes = 0;
+/** New URL for a malformed link, or null to leave it unchanged. */
+$resolve_link = function (string $url): ?string {
+    if ($url === '' || $url[0] === '#') { return null; }
+    $decoded = rawurldecode(str_replace('\\/', '/', $url));
+    if (stripos($decoded, 'research panel') === false) { return null; }
+    $parts = parse_url($decoded);
+    if ($parts === false) { return null; }
+    if (isset($parts['host']) && !preg_match('/(^|\.)oligopolypeptides\.com$/i', $parts['host'])) { return null; }
+    $query = [];
+    if (isset($parts['query'])) { parse_str($parts['query'], $query); }
+    return opseo_20260928_target_for($parts['path'] ?? '/', $query);
+};
 
-    foreach ($resolved as $old => $target) {
-        $encoded_old = str_replace(' ', '%20', $old);
-        $sources = [
-            $old, $encoded_old, home_url($old), str_replace(' ', '%20', home_url($old)),
-            'https://www.oligopolypeptides.com' . $old,
-            'https://oligopolypeptides.com' . $old,
-            'http://www.oligopolypeptides.com' . $old,
-            'http://oligopolypeptides.com' . $old,
-        ];
-        foreach (array_unique($sources) as $source) {
-            foreach (['"', "'"] as $quote) {
-                $needle = 'href=' . $quote . $source . $quote;
-                $replacement = 'href=' . $quote . esc_url($target) . $quote;
-                $count = 0;
-                $new = str_replace($needle, $replacement, $new, $count);
-                $post_changes += $count;
+$report = ['mode' => $apply ? 'apply' : 'dry-run', 'posts_changed' => 0, 'href_replacements' => 0,
+    'elementor_rows_changed' => 0, 'elementor_replacements' => 0, 'unresolved' => [], 'changes' => []];
+
+// 1) post_content hrefs (every non-revision post type).
+$rows = $wpdb->get_results(
+    "SELECT ID, post_type, post_status, post_content FROM {$wpdb->posts}
+     WHERE post_type <> 'revision' AND (post_content LIKE '%Research Panel%' OR post_content LIKE '%Research\\%20Panel%')"
+);
+foreach ($rows as $row) {
+    $count = 0;
+    $new = preg_replace_callback(
+        '#(href\s*=\s*)(["\'])([^"\']*?Research(?: |%20)Panel[^"\']*?)\2#i',
+        function ($m) use ($resolve_link, &$count, &$report, $row) {
+            $target = $resolve_link($m[3]);
+            if ($target === null) {
+                if ($m[3] !== '' && $m[3][0] !== '#') { $report['unresolved'][$m[3]][] = (int) $row->ID; }
+                return $m[0];
             }
+            $count++;
+            $report['changes'][] = ['post' => (int) $row->ID, 'from' => $m[3], 'to' => $target];
+            return $m[1] . $m[2] . esc_url($target) . $m[2];
+        },
+        $row->post_content
+    );
+    if ($count > 0 && $new !== null && $new !== $row->post_content) {
+        $report['posts_changed']++;
+        $report['href_replacements'] += $count;
+        if ($apply) {
+            $wpdb->update($wpdb->posts, ['post_content' => $new], ['ID' => (int) $row->ID]);
+            clean_post_cache((int) $row->ID);
         }
     }
+}
 
-    if ($new !== $content) {
-        wp_update_post(['ID' => (int) $post_id, 'post_content' => $new]);
-        $changed_posts++;
-        $changed_links += $post_changes;
-        echo "Updated post {$post_id}: {$post_changes} href replacement(s)\n";
+// 2) Elementor data: JSON with escaped slashes, e.g. "url":"https:\/\/…" and href=\"…\".
+$metas = $wpdb->get_results(
+    "SELECT meta_id, post_id, meta_value FROM {$wpdb->postmeta}
+     WHERE meta_key = '_elementor_data' AND (meta_value LIKE '%Research Panel%' OR meta_value LIKE '%Research\\%20Panel%')"
+);
+foreach ($metas as $meta) {
+    $count = 0;
+    $new = preg_replace_callback(
+        '#((?:"url"\s*:\s*"|href=\\\\"|href=\\\\\'))([^"\\\\]*(?:\\\\/[^"\\\\]*)*?Research(?: |%20)Panel[^"\\\\]*(?:\\\\/[^"\\\\]*)*?)(?=\\\\?["\'])#i',
+        function ($m) use ($resolve_link, &$count, &$report, $meta) {
+            $target = $resolve_link($m[2]);
+            if ($target === null) { return $m[0]; }
+            $count++;
+            $report['changes'][] = ['post' => (int) $meta->post_id, 'meta' => '_elementor_data', 'from' => str_replace('\\/', '/', $m[2]), 'to' => $target];
+            return $m[1] . str_replace('/', '\\/', esc_url_raw($target));
+        },
+        $meta->meta_value
+    );
+    if ($count > 0 && $new !== null && $new !== $meta->meta_value) {
+        if (json_decode($new) === null && json_last_error() !== JSON_ERROR_NONE) {
+            $report['unresolved']['_elementor_data invalid JSON after edit, skipped'][] = (int) $meta->post_id;
+            continue;
+        }
+        $report['elementor_rows_changed']++;
+        $report['elementor_replacements'] += $count;
+        if ($apply) {
+            $wpdb->update($wpdb->postmeta, ['meta_value' => $new], ['meta_id' => (int) $meta->meta_id]);
+            clean_post_cache((int) $meta->post_id);
+            delete_post_meta((int) $meta->post_id, '_elementor_element_cache');
+        }
     }
 }
-echo "DONE: {$changed_links} href replacement(s) across {$changed_posts} post(s).\n";
+
+// 3) Remaining malformed (non-fragment) hrefs after the run.
+$remaining = 0;
+$check = $wpdb->get_col(
+    "SELECT post_content FROM {$wpdb->posts}
+     WHERE post_type <> 'revision' AND post_status IN ('publish','private','draft','pending','future')
+     AND (post_content LIKE '%Research Panel%' OR post_content LIKE '%Research\\%20Panel%')"
+);
+foreach ($check as $content) {
+    if (preg_match_all('#href\s*=\s*(["\'])(?!\#)[^"\']*Research(?: |%20)Panel[^"\']*\1#i', $content, $m)) {
+        $remaining += count($m[0]);
+    }
+}
+$report['remaining_malformed_non_fragment_hrefs'] = $apply ? $remaining : '(dry run: run with --apply, then re-run to verify)';
+
+$out = null;
+foreach ($args ?? [] as $a) { if (strpos($a, '--report=') === 0) { $out = substr($a, 9); } }
+$json = wp_json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+if ($out) { file_put_contents($out, $json); }
+echo "mode={$report['mode']} posts_changed={$report['posts_changed']} href_replacements={$report['href_replacements']} "
+    . "elementor_rows={$report['elementor_rows_changed']} elementor_replacements={$report['elementor_replacements']} "
+    . "unresolved=" . count($report['unresolved']) . " remaining=" . (is_int($report['remaining_malformed_non_fragment_hrefs']) ? $report['remaining_malformed_non_fragment_hrefs'] : 'n/a') . "\n";

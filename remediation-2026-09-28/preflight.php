@@ -1,34 +1,29 @@
 <?php
-$groups = [
-    ['OP-REC-ARA290-10MG'], ['OPL-BLEND-MOTSC-SS31'], ['OP-STK-PERFORMANCE-RECOVERY'],
-    ['OP-STK-RECOVERY-SUPPORT'], ['OP-STK-COGNITIVE'], ['OP-STACK-METABOLIC'],
-    ['OP-STK-ADVANCED-MULTIPATHWAY'], ['OP-STK-IMMUNE'], ['OP-STK-STARTER'],
-    ['OP-STK-RECOVERY-CELLULAR'], ['OP-COG-SELANK-5MG'], ['OPL-BLEND-GLP2TZ'],
-    ['OP-GH-TESA-10MG'], ['OP-COG-DIHEXA-10MG'], ['OP-REC-BPCTB-20MG'],
-    ['OP-LON-SS31-10MG'], ['OP-LON-PINEALON-5MG'],
-    ['OP-GH-CJC1295-NODAC-5MG','OP-GH-CJC1295-NODAC-2MG'], ['OPL-BLEND-GLP3RT'],
-    ['OP-MET-TIRZ-10MG'], ['OP-MET-SEMA-10MG'], ['OP-REC-BPC157-10MG'],
-    ['OP-LON-EPIT-50MG'], ['OP-AUX-MOTSC-10MG'], ['OP-LON-GHKCU-50MG'],
-];
-
-if (!function_exists('wc_get_product_id_by_sku')) {
-    fwrite(STDERR, "FAIL: WooCommerce SKU lookup is unavailable.\n");
+/**
+ * Preflight for the 2026-09-28 remediation. Run after the MU plugin is in place:
+ *   wp eval-file preflight.php
+ * Exits non-zero if any destination cannot be resolved to a published product
+ * or a published hub page, or if any source would redirect to itself.
+ */
+if (!function_exists('opseo_20260928_path_map')) {
+    fwrite(STDERR, "FAIL: MU plugin not loaded.\n");
     exit(1);
 }
-$missing = 0;
-foreach ($groups as $candidates) {
-    $found = false;
-    foreach ($candidates as $sku) {
-        $id = wc_get_product_id_by_sku($sku);
-        if ($id && get_post_status($id) === 'publish') {
-            echo "OK   {$sku} -> " . get_permalink($id) . "\n";
-            $found = true;
-            break;
-        }
+$fail = 0;
+$check = function (string $label, array $dest) use (&$fail) {
+    if ($dest[0] === 'sku') {
+        $url = opseo_20260928_product_url($dest[1]);
+        if (!$url) { echo "FAIL {$label}: SKU {$dest[1]} is not a published product\n"; $fail++; return; }
+    } else {
+        $page = get_page_by_path(trim($dest[1], '/'));
+        if (!$page || $page->post_status !== 'publish') { echo "FAIL {$label}: hub {$dest[1]} is not a published page\n"; $fail++; return; }
+        $url = home_url($dest[1]);
     }
-    if (!$found) {
-        echo "WARN no published product found for: " . implode(' OR ', $candidates) . "\n";
-        $missing++;
-    }
-}
-echo "Preflight complete. Missing groups: {$missing}. Missing groups use safe hub fallbacks.\n";
+    $src = rtrim(strtolower($label), '/');
+    if (rtrim(strtolower((string) parse_url($url, PHP_URL_PATH)), '/') === $src) { echo "FAIL {$label}: redirects to itself\n"; $fail++; return; }
+    echo "OK   {$label} -> {$url}\n";
+};
+foreach (opseo_20260928_path_map() as $src => $dest) { $check($src, $dest); }
+foreach (opseo_20260928_query_map() as $q => $dest) { $check("/?product={$q}", $dest); }
+echo "Preflight complete. Failures: {$fail}\n";
+exit($fail ? 1 : 0);
