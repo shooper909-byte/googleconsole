@@ -61,7 +61,11 @@ foreach ($rows as $row) {
         },
         $row->post_content
     );
-    if ($count > 0 && $new !== null && $new !== $row->post_content) {
+    if ($new === null) {
+        $report['unresolved']['REGEX FAILURE (' . preg_last_error_msg() . ') in post_content'][] = (int) $row->ID;
+        continue;
+    }
+    if ($count > 0 && $new !== $row->post_content) {
         $report['posts_changed']++;
         $report['href_replacements'] += $count;
         if ($apply) {
@@ -72,24 +76,41 @@ foreach ($rows as $row) {
 }
 
 // 2) Elementor data: JSON with escaped slashes, e.g. "url":"https:\/\/…" and href=\"…\".
+//    Simple, linear patterns only ([^"] cannot cross a quote), so PCRE limits are
+//    never hit on large values; a regex failure is reported instead of skipped.
 $metas = $wpdb->get_results(
     "SELECT meta_id, post_id, meta_value FROM {$wpdb->postmeta}
      WHERE meta_key = '_elementor_data' AND (meta_value LIKE '%Research Panel%' OR meta_value LIKE '%Research\\%20Panel%')"
 );
+$elementor_patterns = [
+    '#(href=\\\\")([^"]*?Research(?: |%20)Panel[^"]*?)(\\\\")#i',   // href=\"...\"
+    '#("url"\s*:\s*")([^"]*?Research(?: |%20)Panel[^"]*?)(")#i',    // "url":"..."
+];
 foreach ($metas as $meta) {
     $count = 0;
-    $new = preg_replace_callback(
-        '#((?:"url"\s*:\s*"|href=\\\\"|href=\\\\\'))([^"\\\\]*(?:\\\\/[^"\\\\]*)*?Research(?: |%20)Panel[^"\\\\]*(?:\\\\/[^"\\\\]*)*?)(?=\\\\?["\'])#i',
-        function ($m) use ($resolve_link, &$count, &$report, $meta) {
-            $target = $resolve_link($m[2]);
-            if ($target === null) { return $m[0]; }
-            $count++;
-            $report['changes'][] = ['post' => (int) $meta->post_id, 'meta' => '_elementor_data', 'from' => str_replace('\\/', '/', $m[2]), 'to' => $target];
-            return $m[1] . str_replace('/', '\\/', esc_url_raw($target));
-        },
-        $meta->meta_value
-    );
-    if ($count > 0 && $new !== null && $new !== $meta->meta_value) {
+    $new = $meta->meta_value;
+    foreach ($elementor_patterns as $pattern) {
+        $new = preg_replace_callback(
+            $pattern,
+            function ($m) use ($resolve_link, &$count, &$report, $meta) {
+                $raw = rtrim($m[2], '\\');
+                $target = $resolve_link($raw);
+                if ($target === null) {
+                    if ($raw !== '' && $raw[0] !== '#') { $report['unresolved'][str_replace('\\/', '/', $raw)][] = (int) $meta->post_id; }
+                    return $m[0];
+                }
+                $count++;
+                $report['changes'][] = ['post' => (int) $meta->post_id, 'meta' => '_elementor_data', 'from' => str_replace('\\/', '/', $raw), 'to' => $target];
+                return $m[1] . str_replace('/', '\\/', esc_url_raw($target)) . $m[3];
+            },
+            $new
+        );
+        if ($new === null) {
+            $report['unresolved']['REGEX FAILURE (' . preg_last_error_msg() . ') in _elementor_data'][] = (int) $meta->post_id;
+            continue 2;
+        }
+    }
+    if ($count > 0 && $new !== $meta->meta_value) {
         if (json_decode($new) === null && json_last_error() !== JSON_ERROR_NONE) {
             $report['unresolved']['_elementor_data invalid JSON after edit, skipped'][] = (int) $meta->post_id;
             continue;
