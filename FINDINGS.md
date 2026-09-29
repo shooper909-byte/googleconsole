@@ -37,6 +37,10 @@ The remaining 35 are covered by [`fix-corrupted-links.sh`](fix-corrupted-links.s
 which repairs all of them in one WP-CLI pass. Nothing else in this document has
 been applied to the site.
 
+**2026-09-17:** section 8 below adds the Search Console "Blocked due to other 4xx
+issue" validation failure. Its fix is prepared and verified in [`robots-fix/`](robots-fix/)
+but is **not live yet** — applying it needs WP Admin or file access to the site.
+
 ---
 
 ## 1. A find/replace corrupted URLs on 39 pages (P1)
@@ -143,6 +147,29 @@ also absorbs **232 internal links** that could point straight at
 - **`/product-tag/`** is both `Disallow`ed in robots.txt *and* serves `noindex`.
   Google cannot read a directive on a page it is blocked from crawling. Pick
   one; the robots block alone is fine here.
+
+## 8. The "Blocked due to other 4xx issue" validation failed on one AJAX endpoint (P2)
+
+Search Console started a validation for this bucket on 2026-07-07 and failed it on
+2026-09-14. It failed on a single URL: `/?wc-ajax=ppc-create-setup-token`, the
+WooCommerce PayPal Payments setup-token endpoint, which answers
+`400 Could not validate nonce` (with `X-Robots-Tag: noindex`) to any request that does
+not carry a valid nonce — i.e. to every crawler. That 400 is correct and must stay.
+
+The URL is discoverable because WooCommerce prints `?wc-ajax=%%endpoint%%` into the
+inline JS of every storefront page. The fix is therefore a crawl directive, not a
+server-side change: `Disallow: /*?wc-ajax=` in robots.txt. Validated against Google's
+matching rules — it catches the AJAX endpoints and leaves all 224 sitemap URLs
+crawlable.
+
+The other four examples in the report need no work: `/wp-admin/admin-ajax.php` (400 is
+correct and it is `Allow`ed on purpose for rendering), `/wp-content/*` (404, a literal
+wildcard string), `/wp-json/oligopoly/v1/coa` and `/?wc-ajax=%%endpoint%%` (both 200
+now — stale records).
+
+The change, both ways to deploy it, and the verification harnesses are in
+[`robots-fix/`](robots-fix/). A new validation has to be started once it is live; the
+failed one cannot be resumed.
 
 ---
 

@@ -10,6 +10,7 @@ Search Console remediation work for
 | [`FINDINGS.md`](FINDINGS.md) | The audit — what is actually wrong, what is fine, and why |
 | [`remediation-sheet.csv`](remediation-sheet.csv) | Prioritised fix list (P1/P2/P3 + verified "no action" rows) |
 | [`redirect-map.csv`](redirect-map.csv) | Broken URL → recommended target, with inbound link counts |
+| [`robots-fix/`](robots-fix/) | The robots.txt fix for the failed "Blocked due to other 4xx issue" validation, with its verification harnesses |
 | [`evidence/`](evidence/) | Raw crawl output backing every claim |
 
 ## Summary

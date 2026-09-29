@@ -1,0 +1,150 @@
+oligopolypeptides.com — 'Blocked due to other 4xx issue' verification
+Captured: 2026-09-17 17:48 UTC
+
+== The five Search Console example URLs ==
+URL:    https://www.oligopolypeptides.com/?wc-ajax=ppc-create-setup-token
+Status: 400
+Robots: x-robots-tag: noindex
+Body:   {"success":false,"data":{"message":"Could not validate nonce."}}
+
+URL:    https://www.oligopolypeptides.com/wp-admin/admin-ajax.php
+Status: 400
+Robots: x-robots-tag: noindex
+Body:   0
+
+URL:    https://www.oligopolypeptides.com/wp-content/*
+Status: 404
+Robots: <none>
+Body:   <!doctype html><html lang="en-US" prefix="og: https://ogp.me/ns#"><head>	<meta charset="UTF-8">	<meta name="viewport
+
+URL:    https://www.oligopolypeptides.com/wp-json/oligopoly/v1/coa
+Status: 200
+Robots: x-robots-tag: noindex
+Body:   {"found":false,"records":[],"message":"No published COA record matches that batch ID."}
+
+URL:    https://oligopolypeptides.com/?wc-ajax=%25%25endpoint%25%25
+Status: 301
+location: https://www.oligopolypeptides.com/?wc-ajax=%25%25endpoint%25%25
+Robots: <none>
+Body:   <html><head><title>301 Moved Permanently</title></head><body><center><h1>301 Moved Permanently</h1></center><hr>
+
+URL:    https://www.oligopolypeptides.com/?wc-ajax=%25%25endpoint%25%25
+Status: 200
+Robots: x-robots-tag: noindex
+Body:   
+
+== Current robots.txt (live) ==
+User-agent: *
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /customer-dashboard/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /*?s=
+Disallow: /*?add-to-cart=
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://www.oligopolypeptides.com/sitemap_index.xml
+== Is robots.txt WordPress-generated? (WP Link header present => virtual) ==
+content-type: text/plain; charset=utf-8
+link: <https://www.oligopolypeptides.com/wp-json/>; rel="https://api.w.org/"
+last-modified: Thu, 17 Sep 2026 17:44:39 GMT
+
+== wc-ajax URLs present in sitemaps ==
+post-sitemap.xml: 0 occurrences
+page-sitemap.xml: 0 occurrences
+product-sitemap.xml: 0 occurrences
+category-sitemap.xml: 0 occurrences
+product_cat-sitemap.xml: 0 occurrences
+
+== wc-ajax URL strings emitted in page HTML (how Google discovered them) ==
+--- /
+      1 wc-ajax=add_to_cart
+      1 wc-ajax=get_refreshed_fragments
+--- /research-catalog/
+      2 wc-ajax=%%endpoint%%
+      1 wc-ajax=add_to_cart
+      1 wc-ajax=get_refreshed_fragments
+--- /peptide-catalog/
+      2 wc-ajax=%%endpoint%%
+      1 wc-ajax=add_to_cart
+      1 wc-ajax=get_refreshed_fragments
+--- /faq/
+      2 wc-ajax=%%endpoint%%
+      1 wc-ajax=add_to_cart
+      1 wc-ajax=get_refreshed_fragments
+
+== Pre-change baseline: robots-fix/verify.sh ==
+(the two robots.txt checks are expected to fail until the rule is applied)
+
+== 1. robots.txt carries the rule ==
+  [FAIL] robots.txt is missing: Disallow: /*?wc-ajax=  (the fix is not live yet)
+  [ok]   rule appears at most once (no duplicate from a double-apply)
+  [ok]   admin-ajax.php is still explicitly allowed (needed for rendering)
+  [ok]   sitemap directive intact
+
+== 2. The rule blocks the endpoints and nothing else ==
+  [FAIL] matcher reported a problem — run check-robots-coverage.py for detail
+
+== 3. Payments are untouched (robots.txt never reaches a browser or PayPal) ==
+  [ok]   setup-token endpoint still rejects unauthenticated calls (400, nonce check intact)
+  [ok]   cart-fragment AJAX still answers 200 for real visitors
+
+== 4. Storefront still serves ==
+  [ok]   / -> 200
+  [ok]   /research-catalog/ -> 200
+  [ok]   /peptide-catalog/ -> 200
+  [ok]   /cart/ -> 200
+  [ok]   product page https://www.oligopolypeptides.com/products/retatrutide-10mg-research-peptide/ -> 200
+  [ok]   PayPal Payments assets still render on the product page
+  [ok]   /checkout/ -> 302 (302 to /cart/ is normal with an empty cart)
+
+== 5. The other four Search Console examples ==
+  /wp-admin/admin-ajax.php                                       400 (400 expected without an action; allowed on purpose)
+  /wp-content/*                                                  404 (404 expected; literal wildcard, not a page)
+  /wp-json/oligopoly/v1/coa                                      200 (200 — already fixed, stale in Search Console)
+  /?wc-ajax=%%endpoint%%                                         200 (200 — already fixed, stale in Search Console)
+  x-robots-tag: noindex
+
+RESULT: 2 check(s) failed.
+
+== Pre-change rule validation: check-robots-coverage.py robots.txt.proposed ==
+
+Rules parsed from robots-fix/robots.txt.proposed for User-agent: * -> 10
+  disallow: /cart/
+  disallow: /checkout/
+  disallow: /my-account/
+  disallow: /customer-dashboard/
+  disallow: /wp-admin/
+  disallow: /wp-login.php
+  disallow: /*?s=
+  disallow: /*?add-to-cart=
+  disallow: /*?wc-ajax=
+  allow: /wp-admin/admin-ajax.php
+
+Must be BLOCKED (crawl noise / internal endpoints):
+  [ok] BLOCKED  https://www.oligopolypeptides.com/?wc-ajax=ppc-create-setup-token
+  [ok] BLOCKED  https://www.oligopolypeptides.com/?wc-ajax=%%endpoint%%
+  [ok] BLOCKED  https://www.oligopolypeptides.com/?wc-ajax=get_refreshed_fragments
+  [ok] BLOCKED  https://www.oligopolypeptides.com/?wc-ajax=add_to_cart
+  [ok] BLOCKED  https://www.oligopolypeptides.com/?wc-ajax=checkout
+  [ok] BLOCKED  https://www.oligopolypeptides.com/cart/
+  [ok] BLOCKED  https://www.oligopolypeptides.com/checkout/
+
+Must stay ALLOWED (content + render resources):
+  [ok] ALLOWED  https://www.oligopolypeptides.com/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/research-catalog/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/peptide-catalog/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/faq/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/research-stacks/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/products/bpc-157-5mg-research-peptide/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/product-category/recovery-research/
+  [ok] ALLOWED  https://www.oligopolypeptides.com/wp-admin/admin-ajax.php
+  [ok] ALLOWED  https://www.oligopolypeptides.com/wp-json/oligopoly/v1/coa
+  [ok] ALLOWED  https://www.oligopolypeptides.com/contact/?subject=404%20Error
+
+Collateral check — every URL in the sitemap must stay crawlable:
+  224 sitemap URLs checked, 0 blocked
+
+RESULT: PASS — rule hits the endpoints and nothing else
