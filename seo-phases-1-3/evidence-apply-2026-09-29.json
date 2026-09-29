@@ -1,0 +1,273 @@
+{
+    "mode": "apply",
+    "changes": [
+        {
+            "post": 12,
+            "field": "rank_math_title",
+            "from": "Retatrutide 10 mg Research Material | OligoPoly Laboratories",
+            "to": "Retatrutide 10 mg Research Peptide (OL-3RT) | OligoPoly Laboratories"
+        },
+        {
+            "post": 12,
+            "field": "rank_math_description",
+            "from": "Retatrutide 10 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "Retatrutide (OL-3RT) 10 mg research peptide for laboratory GIP, GLP-1 and glucagon receptor studies. CAS 2381089-83-2. For research use only."
+        },
+        {
+            "post": 39,
+            "field": "rank_math_title",
+            "from": "Tirzepatide 10 mg Research Material | OligoPoly Laboratories",
+            "to": "Tirzepatide 10 mg Research Peptide (OL-2TZ) | OligoPoly Laboratories"
+        },
+        {
+            "post": 39,
+            "field": "rank_math_description",
+            "from": "Tirzepatide 10 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "Tirzepatide (OL-2TZ) 10 mg research peptide for dual GIP/GLP-1 receptor studies. CAS 2023788-19-2, published COA batch 20260609. Research use only."
+        },
+        {
+            "post": 436,
+            "field": "rank_math_title",
+            "from": "Cagrilintide 5 mg Research Material | OligoPoly Laboratories",
+            "to": "Cagrilintide 5 mg Research Peptide (OL-CAG) | OligoPoly Laboratories"
+        },
+        {
+            "post": 436,
+            "field": "rank_math_description",
+            "from": "Cagrilintide 5 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "Cagrilintide (OL-CAG) 5 mg lipidated amylin-analogue research peptide for laboratory receptor studies. CAS 1415456-99-3. For research use only."
+        },
+        {
+            "post": 49,
+            "field": "rank_math_title",
+            "from": "BPC-157 10mg Research Peptide for Lab Research | OligoPoly",
+            "to": "BPC-157 10 mg Research Peptide | CAS 137525-51-0 | OligoPoly"
+        },
+        {
+            "post": 49,
+            "field": "rank_math_description",
+            "from": "Explore BPC-157 10mg research peptide for laboratory recovery-pathway models. Review product specifications, handling guidance, and COA resources.",
+            "to": "BPC-157 10 mg research peptide (GEPPPGKPADDAGLV, CAS 137525-51-0) with compound identity, references and COA resources. For research use only."
+        },
+        {
+            "post": 55,
+            "field": "rank_math_title",
+            "from": "BPC-157 + TB-500 Research Peptide Blend | OligoPoly Peptides",
+            "to": "BPC-157 + TB-500 Research Blend (10 mg + 10 mg) | OligoPoly"
+        },
+        {
+            "post": 55,
+            "field": "rank_math_description",
+            "from": "BPC-157 + TB-500 research peptide for laboratory research, third-party tested with HPLC/LC-MS quality review, COA documentation, and research use only.",
+            "to": "BPC-157 10 mg + TB-500 10 mg research blend with component identities, CAS numbers and documentation resources. For laboratory research use only."
+        },
+        {
+            "post": 441,
+            "field": "rank_math_title",
+            "from": "GHK-Cu 50 mg Research Material | OligoPoly Laboratories",
+            "to": "GHK-Cu 50 mg Research Peptide | Published COA | OligoPoly"
+        },
+        {
+            "post": 441,
+            "field": "rank_math_description",
+            "from": "GHK-Cu 50 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "GHK-Cu 50 mg copper-peptide research material (CAS 89030-95-5) with published COA batch SGX-OL-2026-0811-K99. For laboratory research use only."
+        },
+        {
+            "post": 443,
+            "field": "rank_math_title",
+            "from": "MOTS-c 10mg Research Peptide for Lab Research | OligoPoly",
+            "to": "MOTS-c 10 mg Research Peptide | CAS 1627580-64-6 | OligoPoly"
+        },
+        {
+            "post": 443,
+            "field": "rank_math_description",
+            "from": "Explore MOTS-c 10mg research peptide for laboratory mitochondrial-pathway models. Review product specifications, handling guidance, and COA resources.",
+            "to": "MOTS-c 10 mg research peptide (MRWQEMGYIFYPRKLR, CAS 1627580-64-6) for mitochondrial-signaling laboratory studies. For research use only."
+        },
+        {
+            "post": 63,
+            "field": "rank_math_title",
+            "from": "NAD+ 500 mg Research Material | OligoPoly Laboratories",
+            "to": "NAD+ 500 mg Research Material | Published COA | OligoPoly"
+        },
+        {
+            "post": 63,
+            "field": "rank_math_description",
+            "from": "NAD+ 500 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "NAD+ 500 mg research material (CAS 53-84-9) with published COA batch AYK20260418-NAD500 for laboratory coenzyme studies. Research use only."
+        },
+        {
+            "post": 447,
+            "field": "rank_math_title",
+            "from": "Selank 5 mg Research Material | OligoPoly Laboratories",
+            "to": "Selank 5 mg Research Peptide | Published COA | OligoPoly"
+        },
+        {
+            "post": 447,
+            "field": "rank_math_description",
+            "from": "Selank 5 mg is PROVISIONAL — HOLD for approved-account laboratory procurement. Availability requires released lot documentation. For research use only.",
+            "to": "Selank 5 mg research peptide (TKPRPGP, CAS 129954-34-3) with published COA batch OP-20260720-B001. For laboratory research use only."
+        },
+        {
+            "post": 2505,
+            "field": "rank_math_description",
+            "from": "",
+            "to": "Verify an OligoPoly research-material batch: search by batch ID to open the matching certificate of analysis and laboratory report. Research use only."
+        },
+        {
+            "post": 1260,
+            "field": "rank_math_canonical_url",
+            "from": "",
+            "to": "https://www.oligopolypeptides.com/what-is-retatrutide/"
+        },
+        {
+            "post": 764,
+            "field": "rank_math_canonical_url",
+            "from": "",
+            "to": "https://www.oligopolypeptides.com/retatrutide-vs-tirzepatide/"
+        },
+        {
+            "post": 763,
+            "field": "rank_math_canonical_url",
+            "from": "",
+            "to": "https://www.oligopolypeptides.com/semaglutide-vs-tirzepatide/"
+        },
+        {
+            "post": 1268,
+            "field": "rank_math_canonical_url",
+            "from": "",
+            "to": "https://www.oligopolypeptides.com/semaglutide-vs-tirzepatide/"
+        },
+        {
+            "snippet": 49,
+            "field": "code",
+            "note": "popup title h1->h2, 2 CSS selector(s) retargeted"
+        },
+        {
+            "product": 12,
+            "attribute": "CAS number",
+            "to": "2381089-83-2"
+        },
+        {
+            "product": 39,
+            "attribute": "CAS number",
+            "to": "2023788-19-2"
+        },
+        {
+            "product": 39,
+            "attribute": "Molecular weight",
+            "to": "4813 g/mol (computed; PubChem CID 166567236)"
+        },
+        {
+            "product": 436,
+            "attribute": "CAS number",
+            "to": "1415456-99-3"
+        },
+        {
+            "product": 436,
+            "attribute": "Molecular weight",
+            "to": "4409 g/mol (computed; PubChem CID 171397054)"
+        },
+        {
+            "product": 49,
+            "attribute": "CAS number",
+            "to": "137525-51-0"
+        },
+        {
+            "product": 49,
+            "attribute": "Molecular weight",
+            "to": "1419.5 g/mol (computed; PubChem CID 9941957)"
+        },
+        {
+            "product": 441,
+            "attribute": "CAS number",
+            "to": "89030-95-5"
+        },
+        {
+            "product": 441,
+            "attribute": "Molecular weight",
+            "to": "402.92 g/mol (computed; PubChem CID 71587328)"
+        },
+        {
+            "product": 443,
+            "attribute": "CAS number",
+            "to": "1627580-64-6"
+        },
+        {
+            "product": 443,
+            "attribute": "Molecular weight",
+            "to": "2174.6 g/mol (computed; PubChem CID 146675088)"
+        },
+        {
+            "product": 63,
+            "attribute": "CAS number",
+            "to": "53-84-9"
+        },
+        {
+            "product": 63,
+            "attribute": "Molecular weight",
+            "to": "663.4 g/mol (computed; PubChem CID 5892)"
+        },
+        {
+            "product": 447,
+            "attribute": "CAS number",
+            "to": "129954-34-3"
+        },
+        {
+            "product": 447,
+            "attribute": "Molecular weight",
+            "to": "751.9 g/mol (computed; PubChem CID 11765600)"
+        },
+        {
+            "new_post": "what-is-tirzepatide-research-guide",
+            "title": "What Is Tirzepatide? Research Guide"
+        },
+        {
+            "new_post": "what-is-ghk-cu-research-guide",
+            "title": "What Is GHK-Cu? Research Guide"
+        },
+        {
+            "new_post": "what-is-mots-c-research-guide",
+            "title": "What Is MOTS-c? Research Guide"
+        }
+    ],
+    "errors": [],
+    "backup_keys": [
+        "meta:12:rank_math_title",
+        "meta:12:rank_math_description",
+        "meta:39:rank_math_title",
+        "meta:39:rank_math_description",
+        "meta:436:rank_math_title",
+        "meta:436:rank_math_description",
+        "meta:49:rank_math_title",
+        "meta:49:rank_math_description",
+        "meta:55:rank_math_title",
+        "meta:55:rank_math_description",
+        "meta:441:rank_math_title",
+        "meta:441:rank_math_description",
+        "meta:443:rank_math_title",
+        "meta:443:rank_math_description",
+        "meta:63:rank_math_title",
+        "meta:63:rank_math_description",
+        "meta:447:rank_math_title",
+        "meta:447:rank_math_description",
+        "meta:2505:rank_math_description",
+        "meta:1260:rank_math_canonical_url",
+        "meta:764:rank_math_canonical_url",
+        "meta:763:rank_math_canonical_url",
+        "meta:1268:rank_math_canonical_url",
+        "snippet:49:code",
+        "attrs:12",
+        "attrs:39",
+        "attrs:436",
+        "attrs:49",
+        "attrs:441",
+        "attrs:443",
+        "attrs:63",
+        "attrs:447",
+        "created:what-is-tirzepatide-research-guide",
+        "created:what-is-ghk-cu-research-guide",
+        "created:what-is-mots-c-research-guide"
+    ]
+}
