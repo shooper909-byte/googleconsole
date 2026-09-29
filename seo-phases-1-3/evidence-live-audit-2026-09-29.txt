@@ -1,0 +1,187 @@
+Live audit, https://www.oligopolypeptides.com, 2026-09-29 (after deploy, caches purged)
+Sitemap: 5 sub-sitemaps, 224 URLs
+
+home: / -> /  hops=['200']
+  title: Research Peptides & Laboratory Products | OligoPoly
+  description (1 tag): Explore research-use-only peptides, individual compounds, formulations, sets, laboratory materials, and product documentation from OligoPoly Laboratories.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /  in_sitemap=True
+  h1: ['Research Peptides &amp; Laboratory Compounds, Documented by Lot']
+  schema: ImageObject, Place, PostalAddress, SearchAction, WebPage, WebSite
+
+catalog: /research-catalog/ -> /research-catalog/  hops=['200']
+  title: Research Products Catalog | OligoPoly Laboratories
+  description (1 tag): Browse research-use peptides, laboratory compounds, formulations, collections and available product documentation from OligoPoly Laboratories.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /research-catalog/  in_sitemap=True
+  h1: ['Research Peptides &amp; Laboratory Products']
+  schema: Answer, BreadcrumbList, FAQPage, ItemList, ListItem, Organization, PostalAddress, Question
+
+coa: /research-peptides-with-coa/ -> /research-peptides-with-coa/  hops=['200']
+  title: Certificate of Analysis Library | Verify Research Peptide Batches | OligoPoly Laboratories
+  description (1 tag): Search OligoPoly Laboratories batch documentation and review available Certificates of Analysis and supporting laboratory reports.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /research-peptides-with-coa/  in_sitemap=True
+  h1: ['Find Your Batch Certificate']
+  schema: BreadcrumbList, ListItem
+
+batch: /batch-verification/ -> /batch-verification/  hops=['200']
+  title: Batch Verification | Research Peptides & Laboratory Compounds | OligoPoly Laboratories
+  description (1 tag): Verify an OligoPoly research-material batch: search by batch ID to open the matching certificate of analysis and laboratory report. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /batch-verification/  in_sitemap=True
+  h1: ['Batch Verification Portal']
+  schema: BreadcrumbList, ListItem
+
+quality: /quality-testing-hub/ -> /quality-testing-hub/  hops=['200']
+  title: Quality Testing Hub | HPLC, COA Verification & Peptide Purity | OligoPoly
+  description (1 tag): Complete guide to peptide quality testing, HPLC verification, mass spectrometry, endotoxin testing, and COA documentation standards for research peptides.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /quality-testing-hub/  in_sitemap=True
+  h1: ['Quality Testing &amp; Verification Hub']
+  schema: BreadcrumbList, ListItem, Organization, WebPage
+
+quality2: /quality-standards/ -> /quality-standards/  hops=['200']
+  title: Quality & Documentation | OligoPoly Laboratories
+  description (1 tag): Review OligoPoly quality and documentation pathways for COA access, HPLC and LC-MS context, batch traceability, specifications, and research-use labeling.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /quality-standards/  in_sitemap=True
+  h1: ['Quality &amp; Documentation']
+  schema: Answer, BreadcrumbList, FAQPage, ListItem, Question
+
+library: /research-library/ -> /research-library/  hops=['200']
+  title: Research Library | Peptide Science, COA Verification & Research Guides
+  description (1 tag): Browse research guides, compound comparisons, COA resources, quality documentation, and laboratory-use references in the OligoPoly Research Library.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /research-library/  in_sitemap=True
+  h1: ['Research Library']
+  schema: BreadcrumbList, ListItem
+
+retatrutide: /products/retatrutide-10mg-research-peptide/ -> /products/retatrutide-10mg-research-peptide/  hops=['200']
+  title: Retatrutide 10 mg Research Peptide (OL-3RT) | OligoPoly Laboratories
+  description (1 tag): Retatrutide (OL-3RT) 10 mg research peptide for laboratory GIP, GLP-1 and glucagon receptor studies. CAS 2381089-83-2. For research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/retatrutide-10mg-research-peptide/  in_sitemap=True
+  h1: ['OL-3RT 10 mg Research Material']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+tirzepatide: /products/tirzepatide-10mg-research-peptide/ -> /products/tirzepatide-10mg-research-peptide/  hops=['200']
+  title: Tirzepatide 10 mg Research Peptide (OL-2TZ) | OligoPoly Laboratories
+  description (1 tag): Tirzepatide (OL-2TZ) 10 mg research peptide for dual GIP/GLP-1 receptor studies. CAS 2023788-19-2, published COA batch 20260609. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/tirzepatide-10mg-research-peptide/  in_sitemap=True
+  h1: ['OL-2TZ 10 mg Research Material']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+semaglutide: /products/semaglutide-5mg-research-peptide/ -> /products/semaglutide-5mg-research-peptide/  hops=['200']
+  title: OL-1SM 5 mg Research Material | Research Peptide | OligoPoly Laboratories
+  description (1 tag): PROVISIONAL — HOLD. NO LOT DATA. Request Quote only; purchasing is disabled.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/semaglutide-5mg-research-peptide/  in_sitemap=True
+  h1: ['OL-1SM 5 mg Research Material']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, WebSite
+
+cagrilintide: /products/cagrilintide-5mg-research-peptide/ -> /products/cagrilintide-5mg-research-peptide/  hops=['200']
+  title: Cagrilintide 5 mg Research Peptide (OL-CAG) | OligoPoly Laboratories
+  description (1 tag): Cagrilintide (OL-CAG) 5 mg lipidated amylin-analogue research peptide for laboratory receptor studies. CAS 1415456-99-3. For research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/cagrilintide-5mg-research-peptide/  in_sitemap=True
+  h1: ['OL-CAG 5 mg Research Material']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+bpc157: /products/bpc-157-10mg-research-peptide/ -> /products/bpc-157-10mg-research-peptide/  hops=['200']
+  title: BPC-157 10 mg Research Peptide | CAS 137525-51-0 | OligoPoly
+  description (1 tag): BPC-157 10 mg research peptide (GEPPPGKPADDAGLV, CAS 137525-51-0) with compound identity, references and COA resources. For research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/bpc-157-10mg-research-peptide/  in_sitemap=True
+  h1: ['BPC-157 10 mg Research Peptide']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+bpc-tb: /products/bpc-157-tb-500-blend/ -> /products/bpc-157-tb-500-blend/  hops=['200']
+  title: BPC-157 + TB-500 Research Blend (10 mg + 10 mg) | OligoPoly
+  description (1 tag): BPC-157 10 mg + TB-500 10 mg research blend with component identities, CAS numbers and documentation resources. For laboratory research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/bpc-157-tb-500-blend/  in_sitemap=True
+  h1: ['BPC-157 10 mg + TB-500 10 mg Research Blend']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, WebSite
+
+ghkcu: /products/ghk-cu-50mg-research-peptide/ -> /products/ghk-cu-50mg-research-peptide/  hops=['200']
+  title: GHK-Cu 50 mg Research Peptide | Published COA | OligoPoly
+  description (1 tag): GHK-Cu 50 mg copper-peptide research material (CAS 89030-95-5) with published COA batch SGX-OL-2026-0811-K99. For laboratory research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/ghk-cu-50mg-research-peptide/  in_sitemap=True
+  h1: ['GHK-Cu 50 mg Research Peptide']
+  schema: Answer, Brand, BreadcrumbList, FAQPage, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, Question, WebSite
+
+motsc: /products/mots-c-10mg-research-peptide/ -> /products/mots-c-10mg-research-peptide/  hops=['200']
+  title: MOTS-c 10 mg Research Peptide | CAS 1627580-64-6 | OligoPoly
+  description (1 tag): MOTS-c 10 mg research peptide (MRWQEMGYIFYPRKLR, CAS 1627580-64-6) for mitochondrial-signaling laboratory studies. For research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/mots-c-10mg-research-peptide/  in_sitemap=True
+  h1: ['MOTS-c 10 mg Research Peptide']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+tesamorelin: /products/tesamorelin-10mg-research-peptide/ -> /ipamorelin-vs-tesamorelin-research-comparison/  hops=['301', '200']
+  title: Ipamorelin vs Tesamorelin Research Comparison | OligoPoly Laboratories
+  description (1 tag): Compare ipamorelin and tesamorelin across receptor targets, growth-hormone-axis research, molecular differences, controls, and analytical records.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /ipamorelin-vs-tesamorelin-research-comparison/  in_sitemap=True
+  h1: ['Ipamorelin vs Tesamorelin Research Comparison']
+  schema: BlogPosting, BreadcrumbList, ImageObject, ListItem, Person, Place, PostalAddress, WebPage, WebSite
+
+nad: /products/nad-500mg-research-compound/ -> /products/nad-500mg-research-compound/  hops=['200']
+  title: NAD+ 500 mg Research Material | Published COA | OligoPoly
+  description (1 tag): NAD+ 500 mg research material (CAS 53-84-9) with published COA batch AYK20260418-NAD500 for laboratory coenzyme studies. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/nad-500mg-research-compound/  in_sitemap=True
+  h1: ['NAD+ 500 mg Research Material']
+  schema: Brand, BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+kpv: /products/kpv-10mg-research-peptide/ -> /products/kpv-10mg-research-peptide/  hops=['200']
+  title: KPV 10mg Research Peptide | OligoPoly Laboratories
+  description (1 tag): KPV 10mg research peptide for laboratory research, third-party tested with HPLC/LC-MS quality review, COA documentation, and research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/kpv-10mg-research-peptide/  in_sitemap=True
+  h1: ['KPV 10 mg Research Peptide']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, WebSite
+
+selank: /products/selank-5mg-research-peptide/ -> /products/selank-5mg-research-peptide/  hops=['200']
+  title: Selank 5 mg Research Peptide | Published COA | OligoPoly
+  description (1 tag): Selank 5 mg research peptide (TKPRPGP, CAS 129954-34-3) with published COA batch OP-20260720-B001. For laboratory research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/selank-5mg-research-peptide/  in_sitemap=True
+  h1: ['Selank 5 mg Research Peptide']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, PropertyValue, WebSite
+
+semax: /products/semax-10mg-research-peptide/ -> /products/semax-10mg-research-peptide/  hops=['200']
+  title: Semax 10mg Research Peptide for Lab Research | OligoPoly
+  description (1 tag): Explore Semax 10mg research peptide for laboratory neuropeptide-signaling models. Review product specifications, handling guidance, and COA resources.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /products/semax-10mg-research-peptide/  in_sitemap=True
+  h1: ['Semax 10 mg Research Peptide']
+  schema: BreadcrumbList, ImageObject, ItemPage, ListItem, Offer, Organization, Place, PostalAddress, Product, WebSite
+
+TZ guide: /what-is-tirzepatide-research-guide/ -> /what-is-tirzepatide-research-guide/  hops=['200']
+  title: What Is Tirzepatide? Dual GIP/GLP-1 Agonist Research Guide | OligoPoly
+  description (1 tag): Tirzepatide research guide: compound identity (CAS 2023788-19-2), dual GIP/GLP-1 receptor pharmacology, analytical testing and documentation. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /what-is-tirzepatide-research-guide/  in_sitemap=True
+  h1: ['What Is Tirzepatide? Research Guide']
+  schema: BlogPosting, BreadcrumbList, ImageObject, ListItem, Person, Place, PostalAddress, WebPage, WebSite
+
+GHK guide: /what-is-ghk-cu-research-guide/ -> /what-is-ghk-cu-research-guide/  hops=['200']
+  title: What Is GHK-Cu? Copper Peptide Research Guide | OligoPoly
+  description (1 tag): GHK-Cu research guide: copper(II)-GHK identity, CAS numbers, ECM and gene-expression research, analytical testing and published COA. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /what-is-ghk-cu-research-guide/  in_sitemap=True
+  h1: ['What Is GHK-Cu? Research Guide']
+  schema: BlogPosting, BreadcrumbList, ImageObject, ListItem, Person, Place, PostalAddress, WebPage, WebSite
+
+MOTS guide: /what-is-mots-c-research-guide/ -> /what-is-mots-c-research-guide/  hops=['200']
+  title: What Is MOTS-c? Mitochondrial-Derived Peptide Research Guide | OligoPoly
+  description (1 tag): MOTS-c research guide: 16-residue mitochondrial-derived peptide identity, AMPK and mitonuclear signaling research, testing and documentation. Research use only.
+  robots: follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large
+  canonical: /what-is-mots-c-research-guide/  in_sitemap=True
+  h1: ['What Is MOTS-c? Research Guide']
+  schema: BlogPosting, BreadcrumbList, ImageObject, ListItem, Person, Place, PostalAddress, WebPage, WebSite
+
