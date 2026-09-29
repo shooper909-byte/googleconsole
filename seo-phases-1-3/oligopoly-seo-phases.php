@@ -27,6 +27,8 @@ function opseo3_link_map(): array {
         '/products/semaglutide-10mg-research-peptide/' => '/semaglutide-vs-tirzepatide/',
         '/bpc-157-vs-ghk-cu/'                   => '/ghk-cu-vs-bpc-157/',
         '/hplc-vs-lc-ms/'                       => '/quality-testing-hub/hplc-vs-lc-ms/',
+        // 404: the GH-axis guide is not published; closest live GH-axis research page.
+        '/gh-axis-research-peptides-cjc-1295-ipamorelin-tesamorelin/' => '/cjc-1295-vs-tesamorelin/',
     ];
 }
 
