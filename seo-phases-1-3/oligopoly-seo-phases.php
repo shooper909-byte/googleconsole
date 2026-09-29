@@ -91,6 +91,10 @@ add_filter('hello_elementor_page_title', function ($show) {
     return $show;
 });
 
+/* Phase 1c — one meta description per page. Hello Elementor prints the post
+ * excerpt as a second <meta name="description"> after Rank Math's own. */
+add_filter('hello_elementor_description_meta_tag', '__return_false');
+
 /* ------------------------------------------------------------------------ *
  * Shared data: references (PubMed-indexed) and topic clusters.
  * ------------------------------------------------------------------------ */
