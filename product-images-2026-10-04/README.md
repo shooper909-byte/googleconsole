@@ -8,8 +8,8 @@ This change gives the Retatrutide 5 mg product page (`/products/retatrutide-5mg-
 
 | Item | Before | After |
 |---|---|---|
-| Featured image | 3433 `2026/08/OP-MET-RETA-5MG.png` | 4001 `2026/10/retatrutide-5mg-front-batch-side-P260628-L013.webp` |
-| Gallery | empty | 4002 `…-web-hero.webp`, 4003 `retatrutide-coa-P260628-L013-highlighted.png` |
+| Featured image (also the catalog card) | 3433 `2026/08/OP-MET-RETA-5MG.png` | 4005 `2026/10/retatrutide-5mg-front-back-batch-P260628-L013.png`: the same photo render as Tirzepatide's catalog image, with the labels changed to RETATRUTIDE 5 MG / batch P260628-L013 |
+| Gallery | empty | 4001 `…-front-batch-side-P260628-L013.webp`, 4002 `…-web-hero.webp`, 4003 `retatrutide-coa-P260628-L013-highlighted.png` |
 | Description | no batch section; "COA status: … no COA is shown for this product" | A new "Retatrutide 5 mg — Batch P260628-L013 COA" section at the top, styled like Tirzepatide's. It has a COA PDF button and the vial/COA hero image. The COA status line now links the published PDF and the batch lookup. |
 | Short description | began "Under testing — lot documentation pending." | That opening sentence is removed and a "Batch P260628-L013 COA" PDF link is added (same pattern as Tirzepatide) |
 
@@ -17,6 +17,8 @@ This change gives the Retatrutide 5 mg product page (`/products/retatrutide-5mg-
 - **COA facts shown:** SteriGenix report RPT-2026-680901, analyzed 08/26/2026, HPLC 99.41%. All of them come from that COA.
 
 The source images are in `images/`.
+
+The featured image was made from `2026/08/tirzepatide-10mg-front-back-batch20260609.png` by `images/make_reta.py`. The script erases the product-name and batch text, then sets the new text in Oswald SemiBold, using the same white and magenta as the original. The caps are still black, as in the Tirzepatide render; the COA lists the cap colour as white.
 
 ## How it was applied
 
