@@ -1,0 +1,15 @@
+47|SEMAGLUTIDE |10 MG|semaglutide-10mg|Semaglutide 10 mg
+3620|TIRZEPATIDE |20 MG|tirzepatide-20mg|Tirzepatide 20 mg
+49|BPC-157 |10 MG|bpc-157-10mg|BPC-157 10 mg
+3398|BPC-157 |5 MG|bpc-157-5mg|BPC-157 5 mg
+52|TB-500 |10 MG|tb-500-10mg|TB-500 10 mg
+446|SEMAX |10 MG|semax-10mg|Semax 10 mg
+455|KPV |10 MG|kpv-10mg|KPV 10 mg
+458|DSIP |5 MG|dsip-5mg|DSIP 5 mg
+459|PT-141 |10 MG|pt-141-10mg|PT-141 10 mg
+3619|CJC-1295 NO DAC |5 MG|cjc-1295-no-dac-5mg|CJC-1295 No DAC 5 mg
+55|BPC-157 + TB-500 |BLEND|bpc-157-tb-500-blend|BPC-157 + TB-500 blend
+1942|SEMA + CAGRI |BLEND|semaglutide-cagrilintide-blend|Semaglutide + Cagrilintide blend
+1943|RETA + CAGRI |BLEND|retatrutide-cagrilintide-blend|Retatrutide + Cagrilintide blend
+1945|BPC-157 + KPV |BLEND|bpc-157-kpv-blend|BPC-157 + KPV blend
+3621|KPV + GHK-CU |BLEND|kpv-ghk-cu-blend|KPV + GHK-Cu blend
