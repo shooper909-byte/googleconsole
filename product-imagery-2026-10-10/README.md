@@ -59,3 +59,10 @@ DB backup before round 2: Pressable on-demand request 982154.
 ### Left as is, deliberately
 
 Images of products that are not sold and have no batch-label photo stay unchanged, because there is nothing truthful to replace them with. These include Epitalon, Ipamorelin, Tesamorelin, SS-31, IGF-1 LR3, Follistatin, PEG-MGF, Dihexa, Pinealon, ARA-290, Thymosin α1/β4, Melanotan II, the GLP-2TZ / GLP-3RT / MOTS-c + SS-31 / Epitalon + Pinealon blends, bacteriostatic water and the supplements. They appear only on `/compare/`, `/research-blends/` and a few comparison articles.
+
+### Verification (20:06 UTC)
+
+- `apply-content-map.php` dry run after both passes: **0 of 38 mapped old images still referenced** (posts, Elementor data, options, snippets).
+- Every published product's featured image resolves to a batch-label photo or a new composite (checked via `get_post_thumbnail_id` / WooCommerce `get_image_id`).
+- Page 516 (`/research-catalog/`) featured image 3728 → 4063; the old value is in `opimg_backup_20261010_page516_thumb`.
+- A full re-crawl from outside could not finish: the edge answered later requests with 429 / a browser check. The DB-level checks above replace it.
