@@ -59,8 +59,7 @@ def compose(keys, size, name, height_frac=0.97, overlap=0.0):
     for i, k in enumerate(keys):
         tile = Image.open(SRC / P[k]).convert("RGB").crop(CROP).resize((tw, th), Image.LANCZOS)
         canvas.paste(tile, (int(x0 + i * step), y), mask)
-    canvas.save(OUT / f"{name}.png", optimize=True)
-    canvas.save(OUT / f"{name}.webp", quality=88, method=6)
+    canvas.save(OUT / f"{name}-20261010.webp", quality=80, method=6)
     print(name, size, keys)
 
 
