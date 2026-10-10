@@ -9,7 +9,8 @@
  * Only images of products that are sold and have a batch-labelled photo are
  * mapped. Retired products and supplements have no new photo and are left
  * alone. Serialized values are unserialized first; JSON-escaped paths are
- * handled. Previous values: option opimg_backup_20261010_content.
+ * handled. Previous values: option opimg_backup_20261010_content_<HHMMSS> per run
+ * (the first run, 19:35 UTC, wrote opimg_backup_20261010_content).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +42,8 @@ $new = array(
 	'tb500'    => $fb( 'tb-500-10mg-front-back-testing-results-soon.png' ),
 	'tirz10'   => '2026/08/tirzepatide-10mg-front-back-batch20260609.png',
 	'lineup'   => '2026/10/BUNDLE-BUILDER-HERO-20261010.webp',
+	'klow'     => '2026/06/klow-blend-front-back-testing-results-soon-20261010.webp',
+	'semacagri' => $fb( 'semaglutide-cagrilintide-blend-front-back-testing-results-soon.png' ),
 );
 
 // Old image (path under uploads, no size suffix) => new image key.
@@ -80,6 +83,9 @@ $map = array(
 	'2026/06/01KSGMTTSWHDA9642H4GKGECDQ.webp'                                        => 'bpctb',
 	'2026/06/01KSGMS4WXEXV7NHGA7AVWP5PS.webp'                                        => 'pt141',
 	'2026/06/01KSGMRRFBQ0Y8KWQ4CZRPEPYR.webp'                                        => 'dsip',
+	'2026/07/klow-blend-research-peptide-premium-vial-square-20260708.webp'          => 'klow',
+	'2026/08/klow-blend-research-peptide-research-blend-oligopoly-vial-v2-20260802-1.webp' => 'klow',
+	'2026/08/ChatGPT-Image-Aug-27-2026-02_56_23-PM.png'                              => 'semacagri',
 );
 
 // Every new file must exist before anything points at it.
@@ -197,9 +203,8 @@ if ( ! $apply ) {
 	WP_CLI::success( 'Dry run OK: ' . count( $writes ) . ' rows would change.' );
 	return;
 }
-if ( ! get_option( 'opimg_backup_20261010_content' ) ) {
-	add_option( 'opimg_backup_20261010_content', $backup, '', 'no' );
-}
+// One backup option per run, so a later run never drops its previous values.
+add_option( 'opimg_backup_20261010_content_' . gmdate( 'His' ), $backup, '', 'no' );
 foreach ( $writes as list( $table, $data, $where, $pid ) ) {
 	$wpdb->update( $table, $data, $where );
 	if ( $pid ) {
