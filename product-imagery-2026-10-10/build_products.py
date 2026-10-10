@@ -136,3 +136,19 @@ bundle(["reta5", "tirz10", "sema5", "nad500", "selank5", "ghk50", "cagri5", "bpc
 # Same products the old collection images showed / the description lists.
 collection(["sema5", "cagri5"], "comparative-pathway-collection-20261010")
 collection(["ghk50", "bpc5"], "telomere-biology-collection-20261010")
+
+
+def banner(key, name, size=(800, 534)):
+    """Product photo centred on a wide canvas (mega-menu feature slot)."""
+    W, H = size
+    canvas = background((W, H))
+    photo = Image.open(SRC / P[key]).convert("RGB").crop((140, 60, 1180, 1254))
+    s = H / photo.height
+    pw, ph = int(photo.width * s), H
+    photo = photo.resize((pw, ph), Image.LANCZOS)
+    canvas.paste(photo, ((W - pw) // 2, 0), feather_mask((pw, ph), 30))
+    save(canvas, name)
+
+
+P["semacagri"] = "semaglutide-cagrilintide-blend-front-back-testing-results-soon.png"
+banner("semacagri", "semaglutide-cagrilintide-blend-mega-menu-20261010")
