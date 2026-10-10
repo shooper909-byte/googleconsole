@@ -3,9 +3,11 @@
  * Read-only: fetch every sitemap URL from the server and list the old-style
  * images each rendered page still shows.
  *
- *   wp eval-file scan-pages.php
+ *   wp eval-file scan-pages.php <offset> <count>
  *
- * Writes /tmp/opimg-scan.txt: "<image> <count> <page paths>" per line.
+ * Runs in batches (server jobs have a time limit). Each batch appends
+ * "<image> <page path>" lines to /tmp/opimg-scan.txt and failures to
+ * /tmp/opimg-scan-failed.txt, then prints "<done>/<total>".
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +26,10 @@ foreach ( array( 'post', 'page', 'product', 'category', 'product_cat' ) as $map 
 		}
 	}
 }
-$urls = array_unique( $urls );
+$urls   = array_values( array_unique( $urls ) );
+$total  = count( $urls );
+$offset = (int) ( $args[0] ?? 0 );
+$urls   = array_slice( $urls, $offset, (int) ( $args[1] ?? 40 ) );
 
 $found  = array();
 $failed = array();
@@ -45,13 +50,12 @@ foreach ( $urls as $u ) {
 	usleep( 300000 );
 }
 
-uasort( $found, function ( $a, $b ) {
-	return count( $b ) - count( $a );
-} );
 $lines = array();
 foreach ( $found as $img => $pages ) {
-	$lines[] = $img . ' ' . count( $pages ) . ' ' . implode( ' ', array_keys( $pages ) );
+	foreach ( array_keys( $pages ) as $page ) {
+		$lines[] = "$img $page";
+	}
 }
-$lines[] = 'FAILED ' . implode( ' ', $failed );
-file_put_contents( '/tmp/opimg-scan.txt', implode( "\n", $lines ) . "\n" );
-WP_CLI::success( count( $urls ) . ' pages, ' . count( $found ) . ' old images, ' . count( $failed ) . ' failed' );
+file_put_contents( '/tmp/opimg-scan.txt', $lines ? implode( "\n", $lines ) . "\n" : '', FILE_APPEND );
+file_put_contents( '/tmp/opimg-scan-failed.txt', $failed ? implode( "\n", $failed ) . "\n" : '', FILE_APPEND );
+echo ( $offset + count( $urls ) ) . "/$total\n";
